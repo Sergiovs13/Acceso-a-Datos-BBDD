@@ -24,7 +24,7 @@ public class Ventana extends JFrame{
 	 * Metodo que inicia y da utilidad a los compenentes
 	 */
 	private void iniciarComponentes() {
-		setTitle("Ventana");
+		setTitle("Ventana Trabajadores");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(500, 500);
 		setLocationRelativeTo(null);
