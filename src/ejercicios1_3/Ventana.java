@@ -6,11 +6,17 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.*;
+import java.awt.Font;
 
 public class Ventana extends JFrame{
 
 	private GestionBBDD gest=new GestionBBDD();
 	private JTextPane tp;
+	private JTextField tfSueldo;
+	private JTextField tfNombre;
+	private JTextField tfDia;
+	private JTextField textfMes;
+	private JTextField tfAnyo;
 	public Ventana() {
 		iniciarComponentes();
 		gest.abrirConexion();
@@ -31,7 +37,7 @@ public class Ventana extends JFrame{
 		getContentPane().add(scrollPane);
 		
 		JButton btnVerTrabajadores = new JButton("Ver Trabajadores");
-		btnVerTrabajadores.setBounds(31, 309, 146, 23);
+		btnVerTrabajadores.setBounds(151, 287, 146, 23);
 		getContentPane().add(btnVerTrabajadores);
 		
 		btnVerTrabajadores.addActionListener(new ActionListener() {
@@ -41,6 +47,121 @@ public class Ventana extends JFrame{
 			}
 			
 		});
+		
+		JLabel lblSueldo = new JLabel("Sueldo:");
+		lblSueldo.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblSueldo.setBounds(31, 348, 46, 14);
+		getContentPane().add(lblSueldo);
+		
+		tfSueldo = new JTextField();
+		tfSueldo.setBounds(87, 345, 86, 20);
+		getContentPane().add(tfSueldo);
+		tfSueldo.setColumns(10);
+		
+		JButton btnIgualSueldo = new JButton("Igual");
+		btnIgualSueldo.setBounds(187, 344, 89, 23);
+		getContentPane().add(btnIgualSueldo);
+		
+		btnIgualSueldo.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				tp.setText(gest.verTrabajadoresSueldo("=", tfSueldo.getText()));
+				
+			}
+			
+		});
+		
+		JButton btnMenorSueldo = new JButton("Menor");
+		btnMenorSueldo.setBounds(286, 344, 89, 23);
+		getContentPane().add(btnMenorSueldo);
+		
+		btnMenorSueldo.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				tp.setText(gest.verTrabajadoresSueldo("<", tfSueldo.getText()));
+			}
+			
+		});
+		JButton btnMayorSueldo = new JButton("Mayor");
+		btnMayorSueldo.setBounds(385, 344, 89, 23);
+		getContentPane().add(btnMayorSueldo);
+		btnMayorSueldo.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				tp.setText(gest.verTrabajadoresSueldo(">", tfSueldo.getText()));
+			}
+			
+		});
+		
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNombre.setBounds(31, 392, 58, 14);
+		getContentPane().add(lblNombre);
+		
+		tfNombre = new JTextField();
+		tfNombre.setBounds(87, 389, 86, 20);
+		getContentPane().add(tfNombre);
+		tfNombre.setColumns(10);
+		
+		JButton btnIgualNombre = new JButton("Igual a");
+		btnIgualNombre.setBounds(187, 388, 89, 23);
+		getContentPane().add(btnIgualNombre);
+		btnIgualNombre.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				tp.setText(gest.verTrabajadoresNombre(tfNombre.getText()));
+			}
+			
+		});
+		
+		JButton btnContieneNombre = new JButton("Contiene a");
+		btnContieneNombre.setBounds(286, 388, 107, 23);
+		getContentPane().add(btnContieneNombre);
+		btnContieneNombre.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+			
+		});
+		
+		JLabel lblFecha = new JLabel("Fecha:");
+		lblFecha.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblFecha.setBounds(31, 424, 46, 14);
+		getContentPane().add(lblFecha);
+		
+		tfDia = new JTextField();
+		tfDia.setBounds(87, 421, 24, 20);
+		getContentPane().add(tfDia);
+		tfDia.setColumns(10);
+		
+		JLabel lblGuion = new JLabel("-");
+		lblGuion.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblGuion.setBounds(114, 424, 10, 14);
+		getContentPane().add(lblGuion);
+		
+		textfMes = new JTextField();
+		textfMes.setBounds(127, 421, 24, 20);
+		getContentPane().add(textfMes);
+		textfMes.setColumns(10);
+		
+		JLabel lblGuion2 = new JLabel("-");
+		lblGuion2.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblGuion2.setBounds(154, 424, 10, 14);
+		getContentPane().add(lblGuion2);
+		
+		tfAnyo = new JTextField();
+		tfAnyo.setBounds(169, 421, 58, 20);
+		getContentPane().add(tfAnyo);
+		tfAnyo.setColumns(10);
+		
+		JButton btnAnterior = new JButton("Anterior");
+		btnAnterior.setBounds(237, 422, 89, 23);
+		getContentPane().add(btnAnterior);
+		
+		JButton btnDespues = new JButton("Despues");
+		btnDespues.setBounds(336, 420, 89, 23);
+		getContentPane().add(btnDespues);
 		
 		this.addWindowListener(new WindowAdapter() {
 			
