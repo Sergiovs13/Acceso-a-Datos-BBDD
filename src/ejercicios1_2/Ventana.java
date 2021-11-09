@@ -6,15 +6,25 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
 
+/**
+ * Clase que gestiona la ventana
+ * @author windows10
+ *
+ */
 public class Ventana extends JFrame{
 	
 
 	GestionBBDD gest=new GestionBBDD();
+	/**
+	 * Constructor de la clase
+	 */
 	public Ventana() {
 		iniciarComponentes();
 		gest.crearConexion();
 	}
-	
+	/**
+	 * Metodo que inicia y da utilidad a los componentes
+	 */
 	private void iniciarComponentes() {
 		setTitle("Ventana Servicios");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

@@ -7,11 +7,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JOptionPane;
-
+/**
+ * Clase que gestiona la base de datos
+ * @author windows10
+ *
+ */
 public class GestionBBDD {
 
 	Connection cnnctn;
 	
+	/**
+	 * Metodo para crear la conexion
+	 */
 	public void crearConexion() {
 		try {
 			cnnctn=DriverManager.getConnection("jdbc:mysql://localhost/manempsa","root","");
@@ -20,6 +27,9 @@ public class GestionBBDD {
 		}
 	}
 	
+	/**
+	 * Metodo para ver los servicios
+	 */
 	public void verServicios() {
 		try {
 			Statement st=cnnctn.createStatement();
@@ -51,6 +61,9 @@ public class GestionBBDD {
 		
 	}
 	
+	/**
+	 * Metodo para ver los clientes
+	 */
 	public void verClientes() {
 		try {
 			Statement st=cnnctn.createStatement();
@@ -73,6 +86,9 @@ public class GestionBBDD {
 		}
 	}
 	
+	/**
+	 * Metodo para cerrar la conexion
+	 */
 	public void cerrarConexion() {
 		try {
 			cnnctn.close();
