@@ -4,10 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.*;
 
 public class Ventana extends JFrame{
+	
 
 	GestionBBDD gest=new GestionBBDD();
 	public Ventana() {
@@ -25,6 +25,7 @@ public class Ventana extends JFrame{
 		JButton btnVerServicios = new JButton("Ver Servicios");
 		btnVerServicios.setBounds(164, 42, 120, 23);
 		getContentPane().add(btnVerServicios);
+		
 		btnVerServicios.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -32,7 +33,18 @@ public class Ventana extends JFrame{
 			}
 		});
 		
-		this.addWindowFocusListener(new WindowAdapter() {
+		JButton btnVerClientes = new JButton("Ver Clientes");
+		btnVerClientes.setBounds(164, 135, 120, 23);
+		getContentPane().add(btnVerClientes);
+		
+		btnVerClientes.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				gest.verClientes();
+			}
+			
+		});
+		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				gest.cerrarConexion();
 			}

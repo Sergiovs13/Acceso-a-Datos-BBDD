@@ -26,8 +26,22 @@ public class GestionBBDD {
 			ResultSet rs=st.executeQuery("Select * From servicios Order By cantidad");
 			
 			String info="";
+			String fecha;
+			String dia;
+			String mes;
+			String anyo;
+			String cantidad;
 			while(rs.next()) {
-				info+=rs.getString("fecha")+" "+rs.getString("tipo")+" "+rs.getString("cantidad")+"\n";
+				fecha=rs.getString("fecha");
+				dia=fecha.substring(8, 10);
+				mes=fecha.substring(5, 7);
+				anyo=fecha.substring(0, 4);
+				fecha=dia+"/"+mes+"/"+anyo;
+				
+				cantidad=rs.getString("cantidad");
+				cantidad=cantidad.replace(".", ",");
+				
+				info+=fecha+" "+rs.getString("tipo")+" "+cantidad+"\n";
 			}
 			JOptionPane.showMessageDialog(null, info);
 			st.close();
@@ -35,6 +49,28 @@ public class GestionBBDD {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void verClientes() {
+		try {
+			Statement st=cnnctn.createStatement();
+			ResultSet rs=st.executeQuery("Select * From clientes Order By nombre");
+			
+			String info="";
+			String movil;
+			
+			while(rs.next()) {
+				movil=rs.getString("tfno2");
+				if(movil.equalsIgnoreCase("null"))
+					movil="no tiene";
+				
+				info+=rs.getString("nombre")+" ----- Fijo: "+rs.getString("tfno1")+" ----- Movil: "+movil+"\n";
+			}
+			JOptionPane.showMessageDialog(null, info);
+			st.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void cerrarConexion() {
