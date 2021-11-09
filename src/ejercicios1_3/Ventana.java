@@ -4,10 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.*;
 import java.awt.Font;
 
+/**
+ * Clase que gestiona la ventana
+ * @author windows10
+ *
+ */
 public class Ventana extends JFrame{
 
 	private GestionBBDD gest=new GestionBBDD();
@@ -15,13 +19,18 @@ public class Ventana extends JFrame{
 	private JTextField tfSueldo;
 	private JTextField tfNombre;
 	private JTextField tfDia;
-	private JTextField textfMes;
+	private JTextField tfMes;
 	private JTextField tfAnyo;
+	/**
+	 * Constructor de la clase
+	 */
 	public Ventana() {
 		iniciarComponentes();
 		gest.abrirConexion();
 	}
-	
+	/**
+	 * Metodo que inicia y da utilidad a los componentes
+	 */
 	private void iniciarComponentes() {
 		setTitle("Ver informacion");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -66,6 +75,9 @@ public class Ventana extends JFrame{
 
 			public void actionPerformed(ActionEvent e) {
 				tp.setText(gest.verTrabajadoresSueldo("=", tfSueldo.getText()));
+				if(tp.getText().equals(""))
+					tp.setText("No hay trabajadores que tengan ese sueldo");
+				tfSueldo.setText("");
 				
 			}
 			
@@ -79,16 +91,23 @@ public class Ventana extends JFrame{
 
 			public void actionPerformed(ActionEvent e) {
 				tp.setText(gest.verTrabajadoresSueldo("<", tfSueldo.getText()));
+				if(tp.getText().equals(""))
+					tp.setText("No hay trabajadores con sueldo menor a "+tfSueldo.getText()+"€");
+				tfSueldo.setText("");
 			}
 			
 		});
 		JButton btnMayorSueldo = new JButton("Mayor");
 		btnMayorSueldo.setBounds(385, 344, 89, 23);
 		getContentPane().add(btnMayorSueldo);
+		
 		btnMayorSueldo.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				tp.setText(gest.verTrabajadoresSueldo(">", tfSueldo.getText()));
+				if(tp.getText().equals(""))
+					tp.setText("No hay trabajadores con sueldo mayor a "+tfSueldo.getText()+"€");
+				tfSueldo.setText("");
 			}
 			
 		});
@@ -106,10 +125,14 @@ public class Ventana extends JFrame{
 		JButton btnIgualNombre = new JButton("Igual a");
 		btnIgualNombre.setBounds(187, 388, 89, 23);
 		getContentPane().add(btnIgualNombre);
+		
 		btnIgualNombre.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				tp.setText(gest.verTrabajadoresNombre(tfNombre.getText()));
+				if(tp.getText().equals(""))
+					tp.setText("No hay trabajadores con ese nombre");
+				tfNombre.setText("");
 			}
 			
 		});
@@ -117,10 +140,14 @@ public class Ventana extends JFrame{
 		JButton btnContieneNombre = new JButton("Contiene a");
 		btnContieneNombre.setBounds(286, 388, 107, 23);
 		getContentPane().add(btnContieneNombre);
+		
 		btnContieneNombre.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				
+				tp.setText(gest.verTrabajadoresContieneNombre(tfNombre.getText()));
+				if(tp.getText().equals(""))
+					tp.setText("No hay trabajadores que contengan "+tfNombre.getText());
+				tfNombre.setText("");
 			}
 			
 		});
@@ -140,10 +167,10 @@ public class Ventana extends JFrame{
 		lblGuion.setBounds(114, 424, 10, 14);
 		getContentPane().add(lblGuion);
 		
-		textfMes = new JTextField();
-		textfMes.setBounds(127, 421, 24, 20);
-		getContentPane().add(textfMes);
-		textfMes.setColumns(10);
+		tfMes = new JTextField();
+		tfMes.setBounds(127, 421, 24, 20);
+		getContentPane().add(tfMes);
+		tfMes.setColumns(10);
 		
 		JLabel lblGuion2 = new JLabel("-");
 		lblGuion2.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -159,10 +186,36 @@ public class Ventana extends JFrame{
 		btnAnterior.setBounds(237, 422, 89, 23);
 		getContentPane().add(btnAnterior);
 		
+		btnAnterior.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				tp.setText(gest.verTrabajadoresFechas("<", tfAnyo.getText()+"-"+tfMes.getText()+"-"+tfDia.getText()));
+				tfDia.setText("");
+				tfMes.setText("");
+				tfAnyo.setText("");
+				if(tp.getText().equals(""))
+					tp.setText("No hay trabajadores anteriores a esa fecha");
+			}
+			
+		});
+		
 		JButton btnDespues = new JButton("Despues");
 		btnDespues.setBounds(336, 420, 89, 23);
 		getContentPane().add(btnDespues);
 		
+		btnDespues.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				tp.setText(gest.verTrabajadoresFechas(">", tfAnyo.getText()+"-"+tfMes.getText()+"-"+tfDia.getText()));
+				tfDia.setText("");
+				tfMes.setText("");
+				tfAnyo.setText("");
+				if(tp.getText().equals(""))
+					tp.setText("No hay trabajadores posteriores a esa fecha");
+				
+			}
+			
+		});
 		this.addWindowListener(new WindowAdapter() {
 			
 			public void windowClosing(WindowEvent e) {
