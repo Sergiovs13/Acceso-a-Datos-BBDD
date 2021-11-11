@@ -15,7 +15,7 @@ public class Ventana extends JFrame{
 
 	private JTextPane tp;
 	private JTextField tfDNI,tfNombre,tfApellido,tfSueldo;
-	private JTextField tfDia,tfMes,tfAnyo,textField;
+	private JTextField tfDia,tfMes,tfAnyo,tfMatricula;
 	private GestionBBDD gest=new GestionBBDD();
 	
 	public Ventana() {
@@ -126,14 +126,37 @@ public class Ventana extends JFrame{
 		lblMatricula.setBounds(25, 500, 57, 14);
 		getContentPane().add(lblMatricula);
 		
-		textField = new JTextField();
-		textField.setBounds(123, 497, 136, 20);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		tfMatricula = new JTextField();
+		tfMatricula.setBounds(123, 497, 136, 20);
+		getContentPane().add(tfMatricula);
+		tfMatricula.setColumns(10);
 		
 		JButton btnDarAlta = new JButton("Dar Alta");
 		btnDarAlta.setBounds(304, 562, 89, 23);
 		getContentPane().add(btnDarAlta);
+		
+		btnDarAlta.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				
+				String dia=tfDia.getText();
+				String mes=tfMes.getText();
+				String anyo=tfAnyo.getText();
+				String fecha=anyo+"-"+mes+"-"+dia;
+				try {
+					gest.insertarTrabajadores(tfDNI.getText(), tfNombre.getText(), tfApellido.getText(), tfSueldo.getText(), fecha, tfMatricula.getText());
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				try {
+					tp.setText(gest.verTrabajadores());
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				vaciarCampos();
+			}
+			
+		});
 		
 		this.addWindowListener(new WindowAdapter() {
 			
@@ -142,5 +165,16 @@ public class Ventana extends JFrame{
 			}
 		});
 		setVisible(true);
+	}
+	
+	private void vaciarCampos() {
+		tfDNI.setText("");
+		tfNombre.setText("");
+		tfApellido.setText("");
+		tfSueldo.setText("");
+		tfDia.setText("");
+		tfMes.setText("");
+		tfAnyo.setText("");
+		tfMatricula.setText("");
 	}
 }
