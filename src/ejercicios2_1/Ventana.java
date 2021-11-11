@@ -181,6 +181,25 @@ public class Ventana extends JFrame{
 		btnEliminar.setBounds(265, 647, 89, 23);
 		getContentPane().add(btnEliminar);
 		
+		btnEliminar.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				boolean eliminacion;
+				try {
+					eliminacion = gest.eliminarTrabajadores(tfDNIDelete.getText());
+					if(eliminacion) {
+							tp.setText(gest.verTrabajadores());
+						tfDNIDelete.setText("");
+					}else
+						tfDNIDelete.setText("");
+				} catch (SQLException e2) {
+					e2.printStackTrace();
+				}
+				
+			}
+			
+		});
+		
 		JLabel lblModificar = new JLabel("Modificar Trabajador");
 		lblModificar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblModificar.setBounds(327, 252, 136, 14);
@@ -263,25 +282,6 @@ public class Ventana extends JFrame{
 		JButton btnModificar = new JButton("Efectuar Cambios");
 		btnModificar.setBounds(375, 543, 146, 23);
 		getContentPane().add(btnModificar);
-		
-		btnEliminar.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				boolean eliminacion;
-				try {
-					eliminacion = gest.eliminarTrabajadores(tfDNIDelete.getText());
-					if(eliminacion) {
-							tp.setText(gest.verTrabajadores());
-						tfDNIDelete.setText("");
-					}else
-						tfDNIDelete.setText("");
-				} catch (SQLException e2) {
-					e2.printStackTrace();
-				}
-				
-			}
-			
-		});
 		this.addWindowListener(new WindowAdapter() {
 			
 			public void windowClosing(WindowEvent e) {
