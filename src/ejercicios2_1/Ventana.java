@@ -176,12 +176,18 @@ public class Ventana extends JFrame{
 		btnEliminar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				boolean eliminacion=gest.eliminarTrabajadores(tfDNIDelete.getText());
-				if(eliminacion) {
-					tp.setText(gest.verTrabajadores());
-					tfDNIDelete.setText("");
-				}else
-					tfDNIDelete.setText("");
+				boolean eliminacion;
+				try {
+					eliminacion = gest.eliminarTrabajadores(tfDNIDelete.getText());
+					if(eliminacion) {
+							tp.setText(gest.verTrabajadores());
+						tfDNIDelete.setText("");
+					}else
+						tfDNIDelete.setText("");
+				} catch (SQLException e2) {
+					e2.printStackTrace();
+				}
+				
 			}
 			
 		});
