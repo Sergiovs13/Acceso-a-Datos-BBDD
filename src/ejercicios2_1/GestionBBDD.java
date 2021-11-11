@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JOptionPane;
+
 public class GestionBBDD {
 
 	Connection cnnctn;
@@ -51,5 +53,36 @@ public class GestionBBDD {
 		Statement st=cnnctn.createStatement();
 		st.execute("Insert Into trabajadores (dni, nombre, apellido, sueldo, fecha, matricula) Values ('"+dni+"','"+nombre+"','"+apellido+"','"+sueldo+"','"+fecha+"','"+matricula+"')");
 		st.close();
+	}
+	
+	public void eliminarTrabajadores(String dni) throws SQLException {
+		Statement st=cnnctn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+		ResultSet rs=st.executeQuery("Select * From trabajadores Where dni='"+dni+"'");
+		
+		if(!rs.first()) {
+			JOptionPane.showMessageDialog(null, "No se ha encontrado ningun trabajador con ese DNI");
+		}else {
+			String info="";
+			String fecha;
+			String dia;
+			String mes;
+			String anyo;
+			while(rs.next()) {
+				fecha=rs.getString("fecha");
+				dia=fecha.substring(8, 10);
+				mes=fecha.substring(5, 7);
+				anyo=fecha.substring(0, 4);
+				fecha=dia+"/"+mes+"/"+anyo;
+				
+				info+=rs.getString("dni")+" -- "+rs.getString("nombre")+" "+rs.getString("apellido")+" -- "+rs.getString("sueldo")+" -- "+fecha+" -- "+rs.getString("matricula")+"\n";
+			}
+			int opcion=JOptionPane.showConfirmDialog(null, "Se ha encontrado el siguiente trabajador: \n"+info, "Borrar trabajador", JOptionPane.YES_NO_OPTION);
+			
+			if(opcion==JOptionPane.YES_OPTION) {
+				st.execute("Delete * From trabajadores Where dni ="+dni+"");
+			}else
+				JOptionPane.showMessageDialog(null, "Eliminacion cancelada");
+		}
+		
 	}
 }

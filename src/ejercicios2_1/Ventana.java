@@ -17,6 +17,7 @@ public class Ventana extends JFrame{
 	private JTextField tfDNI,tfNombre,tfApellido,tfSueldo;
 	private JTextField tfDia,tfMes,tfAnyo,tfMatricula;
 	private GestionBBDD gest=new GestionBBDD();
+	private JTextField tfDNIDelete;
 	
 	public Ventana() {
 		iniciarComponentes();
@@ -26,7 +27,7 @@ public class Ventana extends JFrame{
 	private void iniciarComponentes() {
 		setTitle("Insertar Trabajadores");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(500, 650);
+		setSize(590, 720);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
@@ -42,7 +43,7 @@ public class Ventana extends JFrame{
 		getContentPane().add(tp);
 		
 		JScrollPane scrollPane = new JScrollPane(tp);
-		scrollPane.setBounds(25, 11, 429, 187);
+		scrollPane.setBounds(25, 11, 523, 187);
 		getContentPane().add(scrollPane);
 		
 		JButton btnVerTrabajadores = new JButton("Ver Trabajadores");
@@ -132,7 +133,7 @@ public class Ventana extends JFrame{
 		tfMatricula.setColumns(10);
 		
 		JButton btnDarAlta = new JButton("Dar Alta");
-		btnDarAlta.setBounds(304, 562, 89, 23);
+		btnDarAlta.setBounds(204, 546, 89, 23);
 		getContentPane().add(btnDarAlta);
 		
 		btnDarAlta.addActionListener(new ActionListener() {
@@ -158,6 +159,31 @@ public class Ventana extends JFrame{
 			
 		});
 		
+		JLabel lblDNIDelete = new JLabel("DNI:");
+		lblDNIDelete.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblDNIDelete.setBounds(25, 609, 46, 14);
+		getContentPane().add(lblDNIDelete);
+		
+		tfDNIDelete = new JTextField();
+		tfDNIDelete.setBounds(123, 606, 136, 20);
+		getContentPane().add(tfDNIDelete);
+		tfDNIDelete.setColumns(10);
+		
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(265, 647, 89, 23);
+		getContentPane().add(btnEliminar);
+		
+		btnEliminar.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				try {
+					gest.eliminarTrabajadores(tfDNIDelete.getText());
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+			
+		});
 		this.addWindowListener(new WindowAdapter() {
 			
 			public void windowClosing(WindowEvent e) {
