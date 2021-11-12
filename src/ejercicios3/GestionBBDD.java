@@ -62,4 +62,14 @@ public class GestionBBDD {
 			dtm.removeRow(i);
 		}
 	}
+	
+	public void insertarTrabajador(String dni, String nombre, String apellido, String sueldo, String fecha, String matricula) {
+		try {
+			Statement st=cnnctn.createStatement();
+			st.execute("Insert Into trabajadores (dni,nombre,apellido,sueldo,fecha,matricula) Values('"+dni+"','"+nombre+"','"+apellido+"','"+sueldo+"','"+fecha+"','"+matricula+"')");
+			st.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

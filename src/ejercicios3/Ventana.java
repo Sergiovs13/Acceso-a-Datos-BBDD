@@ -36,7 +36,7 @@ public class Ventana extends JFrame{
 		getContentPane().add(scrollPane);
 		
 		JButton btnVerTrabajadores = new JButton("Ver Trabajadores");
-		btnVerTrabajadores.setBounds(24, 232, 140, 23);
+		btnVerTrabajadores.setBounds(141, 214, 140, 23);
 		getContentPane().add(btnVerTrabajadores);
 		
 		
@@ -44,6 +44,7 @@ public class Ventana extends JFrame{
 
 			public void actionPerformed(ActionEvent e) {
 				try {
+					gest.limpiarTabla(dtm);
 					gest.mostrarTrabajadores(dtm);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
@@ -58,7 +59,7 @@ public class Ventana extends JFrame{
 		getContentPane().add(lblAcciones);
 		
 		JButton btnEliminar = new JButton("Eliminar Trabajador");
-		btnEliminar.setBounds(34, 374, 152, 23);
+		btnEliminar.setBounds(24, 374, 152, 23);
 		getContentPane().add(btnEliminar);
 		
 		btnEliminar.addActionListener(new ActionListener() {
@@ -85,6 +86,18 @@ public class Ventana extends JFrame{
 						JOptionPane.showMessageDialog(null, "Eliminacion cancelada");
 				}else
 					JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun trabajador");
+			}
+			
+		});
+		
+		JButton btnNuevo = new JButton("Nuevo");
+		btnNuevo.setBounds(186, 374, 89, 23);
+		getContentPane().add(btnNuevo);
+		
+		btnNuevo.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				new DialogoNuevo(gest,dtm);
 			}
 			
 		});
