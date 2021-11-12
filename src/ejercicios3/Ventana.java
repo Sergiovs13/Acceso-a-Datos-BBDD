@@ -1,7 +1,10 @@
 package ejercicios3;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -34,6 +37,18 @@ public class Ventana extends JFrame{
 		JButton btnVerTrabajadores = new JButton("Ver Trabajadores");
 		btnVerTrabajadores.setBounds(24, 232, 140, 23);
 		getContentPane().add(btnVerTrabajadores);
+		
+		btnVerTrabajadores.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				try {
+					gest.mostrarTrabajadores(dtm);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+			
+		});
 		
 		setVisible(true);
 		
