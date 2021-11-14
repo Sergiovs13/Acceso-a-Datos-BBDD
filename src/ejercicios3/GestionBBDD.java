@@ -72,4 +72,31 @@ public class GestionBBDD {
 			e.printStackTrace();
 		}
 	}
+	
+	public void modificarTrabajador(String dni, String nombre, String apellido, String sueldo, String fecha, String matricula) {
+		try {
+			Statement st= cnnctn.createStatement();
+			st.execute("Update trabajadores SET nombre='"+nombre+"', apellido='"+apellido+"', sueldo='"+sueldo+"', fecha='"+fecha+"', matricula='"+matricula+"' Where dni='"+dni+"'");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public String[] datosTrabajador(String dni, DefaultTableModel dtm) {
+		String[] datos=new String[dtm.getColumnCount()-1];
+		try {
+			Statement st=cnnctn.createStatement();
+			ResultSet rs=st.executeQuery("Select * From trabajadores Where dni='"+dni+"'");
+			
+			while(rs.next()) {
+				for(int i=0;i<datos.length;i++) {
+					datos[i]=rs.getString(i+2);
+				}
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return datos;
+	}
 }

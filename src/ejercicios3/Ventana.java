@@ -109,7 +109,10 @@ public class Ventana extends JFrame{
 		btnModificar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				
+				if(table.getSelectedRow()==-1)
+					JOptionPane.showMessageDialog(null, "Debes seleccionar un trabajador");
+				else
+					new DialogoModificar(gest,dtm,(String)dtm.getValueAt(table.getSelectedRow(), 0));
 			}
 			
 		});
