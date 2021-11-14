@@ -101,6 +101,18 @@ public class Ventana extends JFrame{
 			}
 			
 		});
+		
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.setBounds(285, 374, 89, 23);
+		getContentPane().add(btnModificar);
+		
+		btnModificar.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+			
+		});
 		setVisible(true);
 		
 		this.addWindowListener(new WindowAdapter() {
