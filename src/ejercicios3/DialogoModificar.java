@@ -118,6 +118,7 @@ public class DialogoModificar extends JDialog{
 				gest.limpiarTabla(dtm);
 				try {
 					gest.mostrarTrabajadores(dtm);
+					dispose();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -135,6 +136,7 @@ public class DialogoModificar extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, "Modificacion cancelada");
 				vaciarCampos();
+				dispose();
 			}
 			
 		});

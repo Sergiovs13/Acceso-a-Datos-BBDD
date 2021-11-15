@@ -119,6 +119,7 @@ public class DialogoNuevo extends JDialog{
 				gest.limpiarTabla(dtm);
 				try {
 					gest.mostrarTrabajadores(dtm);
+					dispose();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -136,6 +137,7 @@ public class DialogoNuevo extends JDialog{
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(null, "Insercion cancelada");
 				vaciarCampos();
+				dispose();
 			}
 			
 		});
