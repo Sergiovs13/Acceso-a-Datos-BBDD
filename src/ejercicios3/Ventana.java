@@ -106,6 +106,10 @@ public class Ventana extends JFrame{
 		btnModificar.setBounds(285, 374, 89, 23);
 		getContentPane().add(btnModificar);
 		
+		JButton btnFiltrar = new JButton("Filtrar");
+		btnFiltrar.setBounds(384, 374, 89, 23);
+		getContentPane().add(btnFiltrar);
+		
 		btnModificar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
