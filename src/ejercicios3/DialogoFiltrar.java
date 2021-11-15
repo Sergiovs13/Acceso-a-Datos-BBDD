@@ -14,6 +14,8 @@ public class DialogoFiltrar extends JDialog{
 	private JComboBox cbSueldo, cbFecha;
 	private GestionBBDD gest;
 	private DefaultTableModel dtm;
+	private JLabel lblOrdenacion;
+	private JComboBox cbOrdenar;
 	
 	public DialogoFiltrar(GestionBBDD gest, DefaultTableModel dtm) {
 		iniciarComponentes();
@@ -24,7 +26,7 @@ public class DialogoFiltrar extends JDialog{
 	private void iniciarComponentes() {
 		setTitle("Filtrar Trabajador");
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
-		setSize(325,400);
+		setSize(325,450);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
@@ -194,6 +196,32 @@ public class DialogoFiltrar extends JDialog{
 			}
 			
 		});
+		
+		lblOrdenacion = new JLabel("Ordenacion:");
+		lblOrdenacion.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblOrdenacion.setBounds(10, 343, 73, 14);
+		getContentPane().add(lblOrdenacion);
+		
+		cbOrdenar = new JComboBox();
+		cbOrdenar.setModel(new DefaultComboBoxModel(new String[] {"Sin Ordenacion", "DNI", "Nombre", "Apellidos", "Sueldo", "Fecha", "Matricula"}));
+		cbOrdenar.setBounds(34, 368, 117, 22);
+		getContentPane().add(cbOrdenar);
+		
+		
+		JRadioButton rdbtnAsc = new JRadioButton("ASC");
+		rdbtnAsc.setFont(new Font("Tahoma", Font.BOLD, 11));
+		rdbtnAsc.setBounds(202, 355, 55, 23);
+		getContentPane().add(rdbtnAsc);
+		
+		JRadioButton rdbtnDesc = new JRadioButton("DESC");
+		rdbtnDesc.setFont(new Font("Tahoma", Font.BOLD, 11));
+		rdbtnDesc.setBounds(202, 381, 63, 23);
+		getContentPane().add(rdbtnDesc);
+		
+		ButtonGroup botonesO=new ButtonGroup();
+		botonesO.add(rdbtnAsc);
+		botonesO.add(rdbtnDesc);
+		
 		setVisible(true);
 	}
 	
