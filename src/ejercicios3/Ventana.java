@@ -106,10 +106,6 @@ public class Ventana extends JFrame{
 		btnModificar.setBounds(285, 374, 89, 23);
 		getContentPane().add(btnModificar);
 		
-		JButton btnFiltrar = new JButton("Filtrar");
-		btnFiltrar.setBounds(384, 374, 89, 23);
-		getContentPane().add(btnFiltrar);
-		
 		btnModificar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -117,6 +113,18 @@ public class Ventana extends JFrame{
 					JOptionPane.showMessageDialog(null, "Debes seleccionar un trabajador");
 				else
 					new DialogoModificar(gest,dtm,(String)dtm.getValueAt(table.getSelectedRow(), 0));
+			}
+			
+		});
+		
+		JButton btnFiltrar = new JButton("Filtrar");
+		btnFiltrar.setBounds(384, 374, 89, 23);
+		getContentPane().add(btnFiltrar);
+		
+		btnFiltrar.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				new DialogoFiltrar(gest,dtm);
 			}
 			
 		});
