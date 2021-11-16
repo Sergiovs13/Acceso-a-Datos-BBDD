@@ -11,11 +11,10 @@ public class DialogoFiltrar extends JDialog{
 
 	private JTextField tfDNI,tfNombre,tfApellido,tfSueldo;
 	private JTextField tfDia, tfMes, tfAnyo,tfMatricula;
-	private JComboBox cbSueldo, cbFecha;
+	private JComboBox cbSueldo, cbFecha,cbOrdenar;
 	private GestionBBDD gest;
 	private DefaultTableModel dtm;
-	private JLabel lblOrdenacion;
-	private JComboBox cbOrdenar;
+	private JRadioButton rdbtnAsc, rdbtnDesc;
 	
 	public DialogoFiltrar(GestionBBDD gest, DefaultTableModel dtm) {
 		iniciarComponentes();
@@ -159,6 +158,13 @@ public class DialogoFiltrar extends JDialog{
 					else
 						sentencia+="Where matricula Like '%"+tfMatricula.getText()+"%'";
 				}
+				if(!cbOrdenar.getSelectedItem().equals("Sin Ordenacion")) {
+					
+					if(rdbtnAsc.isSelected())
+						sentencia+=" Order By "+cbOrdenar.getSelectedItem()+" ASC";
+					else
+						sentencia+=" Order By "+cbOrdenar.getSelectedItem()+" DESC";
+				}
 				gest.limpiarTabla(dtm);
 				gest.filtrarTrabajadores(dtm, sentencia);
 				dispose();
@@ -197,23 +203,23 @@ public class DialogoFiltrar extends JDialog{
 			
 		});
 		
-		lblOrdenacion = new JLabel("Ordenacion:");
+		JLabel lblOrdenacion = new JLabel("Ordenacion:");
 		lblOrdenacion.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblOrdenacion.setBounds(10, 343, 73, 14);
 		getContentPane().add(lblOrdenacion);
 		
 		cbOrdenar = new JComboBox();
-		cbOrdenar.setModel(new DefaultComboBoxModel(new String[] {"Sin Ordenacion", "DNI", "Nombre", "Apellidos", "Sueldo", "Fecha", "Matricula"}));
+		cbOrdenar.setModel(new DefaultComboBoxModel(new String[] {"Sin Ordenacion", "DNI", "Nombre", "Apellido", "Sueldo", "Fecha", "Matricula"}));
 		cbOrdenar.setBounds(34, 368, 117, 22);
 		getContentPane().add(cbOrdenar);
 		
 		
-		JRadioButton rdbtnAsc = new JRadioButton("ASC");
+		rdbtnAsc = new JRadioButton("ASC");
 		rdbtnAsc.setFont(new Font("Tahoma", Font.BOLD, 11));
 		rdbtnAsc.setBounds(202, 355, 55, 23);
 		getContentPane().add(rdbtnAsc);
 		
-		JRadioButton rdbtnDesc = new JRadioButton("DESC");
+		rdbtnDesc = new JRadioButton("DESC");
 		rdbtnDesc.setFont(new Font("Tahoma", Font.BOLD, 11));
 		rdbtnDesc.setBounds(202, 381, 63, 23);
 		getContentPane().add(rdbtnDesc);

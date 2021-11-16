@@ -33,7 +33,7 @@ public class DialogoNuevo extends JDialog{
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
-		JLabel lblDNI = new JLabel("DNI:\r\n");
+		JLabel lblDNI = new JLabel("DNI:");
 		lblDNI.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblDNI.setBounds(10, 26, 46, 14);
 		getContentPane().add(lblDNI);

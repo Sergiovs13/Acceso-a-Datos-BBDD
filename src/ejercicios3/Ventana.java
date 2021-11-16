@@ -14,6 +14,8 @@ public class Ventana extends JFrame{
 	private JTable table;
 	private DefaultTableModel dtm= new DefaultTableModel();
 	private GestionBBDD gest=new GestionBBDD();
+	private JTextField tfNumTrabajadores;
+	private JTextField tfSueldoMedio;
 	
 	public Ventana() {
 		iniciarComponentes();
@@ -46,6 +48,7 @@ public class Ventana extends JFrame{
 				try {
 					gest.limpiarTabla(dtm);
 					gest.mostrarTrabajadores(dtm);
+					modificarNumSueldo();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -79,6 +82,7 @@ public class Ventana extends JFrame{
 						try {
 							gest.limpiarTabla(dtm);
 							gest.mostrarTrabajadores(dtm);
+							modificarNumSueldo();
 						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
@@ -121,6 +125,28 @@ public class Ventana extends JFrame{
 		btnFiltrar.setBounds(384, 374, 89, 23);
 		getContentPane().add(btnFiltrar);
 		
+		JLabel lblNumTrabajadores = new JLabel("N\u00BA de Trabajadores:");
+		lblNumTrabajadores.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNumTrabajadores.setBounds(24, 271, 118, 14);
+		getContentPane().add(lblNumTrabajadores);
+		
+		tfNumTrabajadores = new JTextField();
+		tfNumTrabajadores.setText("0");
+		tfNumTrabajadores.setBounds(150, 268, 86, 20);
+		getContentPane().add(tfNumTrabajadores);
+		tfNumTrabajadores.setColumns(10);
+		
+		JLabel lblSueldoMedio = new JLabel("Sueldo Medio:");
+		lblSueldoMedio.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblSueldoMedio.setBounds(269, 271, 86, 14);
+		getContentPane().add(lblSueldoMedio);
+		
+		tfSueldoMedio = new JTextField();
+		tfSueldoMedio.setText("0");
+		tfSueldoMedio.setBounds(357, 268, 86, 20);
+		getContentPane().add(tfSueldoMedio);
+		tfSueldoMedio.setColumns(10);
+		
 		btnFiltrar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -136,5 +162,14 @@ public class Ventana extends JFrame{
 				gest.cerrarConexion();
 			}
 		});
+	}
+	
+	private void modificarNumSueldo() {
+		double sueldoMedio=0;
+		tfNumTrabajadores.setText(""+dtm.getRowCount());
+		for(int i=0;i<dtm.getRowCount();i++) {
+			sueldoMedio+=Double.parseDouble((String) table.getValueAt(i, 3));
+		}
+		tfSueldoMedio.setText(sueldoMedio+"");
 	}
 }
