@@ -28,7 +28,8 @@ public class GestionBBDD {
 		}
 	}
 	
-	public void mostrarTrabajadores(DefaultTableModel dtm) throws SQLException {
+	public double mostrarTrabajadores(DefaultTableModel dtm) throws SQLException {
+		double sueldo=0;
 		Statement st=cnnctn.createStatement();
 		ResultSet rs=st.executeQuery("Select * From trabajadores");
 		String[] datos=new String[dtm.getColumnCount()];
@@ -40,10 +41,13 @@ public class GestionBBDD {
 			fecha+="-"+(String) datos[4].subSequence(5, 7);
 			fecha+="-"+(String) datos[4].subSequence(0, 4);
 			datos[4]=fecha;
+			sueldo+=Double.parseDouble(datos[3]);
 			dtm.addRow(datos);
 		}
 		st.close();
 		rs.close();
+		
+		return sueldo;
 	}
 	
 	public void eliminarTrabajador(String dni) {
@@ -98,7 +102,8 @@ public class GestionBBDD {
 		return datos;
 	}
 	
-	public void filtrarTrabajadores(DefaultTableModel dtm, String sentencia) {
+	public double filtrarTrabajadores(DefaultTableModel dtm, String sentencia) {
+		double sueldo=0;
 		try {
 			PreparedStatement ps = cnnctn.prepareStatement("Select * From trabajadores "+sentencia);
 			ResultSet rs = ps.executeQuery();
@@ -111,11 +116,24 @@ public class GestionBBDD {
 				fecha+="-"+(String) datos[4].subSequence(5, 7);
 				fecha+="-"+(String) datos[4].subSequence(0, 4);
 				datos[4]=fecha;
+				sueldo+=Double.parseDouble(datos[3]);
 				dtm.addRow(datos);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return sueldo;
+	}
+	
+	public double sumaSueldo() {
+		double sueldo=0;
+		try {
+			Statement st=cnnctn.createStatement();
+			ResultSet rs = st.executeQuery("Select Sum(sueldo) From trabajadores");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return sueldo;
 	}
 }

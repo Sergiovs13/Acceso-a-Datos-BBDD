@@ -19,11 +19,14 @@ public class DialogoNuevo extends JDialog{
 	private JTextField tfSueldo, tfDia, tfMes, tfAnyo;
 	private GestionBBDD gest;
 	private DefaultTableModel dtm;
+	private JTextField sueldo, trabajadores;
 	
-	public DialogoNuevo(GestionBBDD gest, DefaultTableModel dtm) {
+	public DialogoNuevo(GestionBBDD gest, DefaultTableModel dtm, JTextField sueldo, JTextField trabajadores) {
 		iniciarComponentes();
 		this.gest=gest;
 		this.dtm=dtm;
+		this.sueldo=sueldo;
+		this.trabajadores=trabajadores;
 	}
 
 	private void iniciarComponentes() {
@@ -118,7 +121,8 @@ public class DialogoNuevo extends JDialog{
 				JOptionPane.showMessageDialog(null, "Trabajador insertado correctamente");
 				gest.limpiarTabla(dtm);
 				try {
-					gest.mostrarTrabajadores(dtm);
+					sueldo.setText(""+gest.mostrarTrabajadores(dtm));
+					trabajadores.setText(""+dtm.getRowCount());
 					dispose();
 				} catch (SQLException e) {
 					e.printStackTrace();

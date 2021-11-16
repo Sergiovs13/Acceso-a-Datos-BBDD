@@ -5,6 +5,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 public class DialogoFiltrar extends JDialog{
@@ -15,12 +17,16 @@ public class DialogoFiltrar extends JDialog{
 	private GestionBBDD gest;
 	private DefaultTableModel dtm;
 	private JRadioButton rdbtnAsc, rdbtnDesc;
+	private JTextField sueldo, trabajadores;
 	
-	public DialogoFiltrar(GestionBBDD gest, DefaultTableModel dtm) {
+	public DialogoFiltrar(GestionBBDD gest, DefaultTableModel dtm,JTextField sueldo, JTextField trabajadores) {
 		iniciarComponentes();
 		this.gest=gest;
 		this.dtm=dtm;
+		this.sueldo=sueldo;
+		this.trabajadores=trabajadores;
 	}
+	
 	
 	private void iniciarComponentes() {
 		setTitle("Filtrar Trabajador");
@@ -166,7 +172,8 @@ public class DialogoFiltrar extends JDialog{
 						sentencia+=" Order By "+cbOrdenar.getSelectedItem()+" DESC";
 				}
 				gest.limpiarTabla(dtm);
-				gest.filtrarTrabajadores(dtm, sentencia);
+				sueldo.setText(""+gest.filtrarTrabajadores(dtm, sentencia));
+				trabajadores.setText(""+dtm.getRowCount());
 				dispose();
 			}
 			
@@ -180,7 +187,8 @@ public class DialogoFiltrar extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				try {
 					gest.limpiarTabla(dtm);
-					gest.mostrarTrabajadores(dtm);
+					sueldo.setText(""+gest.mostrarTrabajadores(dtm));
+					trabajadores.setText(""+dtm.getRowCount());
 					dispose();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
@@ -241,4 +249,6 @@ public class DialogoFiltrar extends JDialog{
 		tfAnyo.setText("");
 		tfMatricula.setText("");
 	}
+	
+	
 }

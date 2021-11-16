@@ -101,7 +101,7 @@ public class Ventana extends JFrame{
 		btnNuevo.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				new DialogoNuevo(gest,dtm);
+				new DialogoNuevo(gest,dtm,tfSueldoMedio,tfNumTrabajadores);
 			}
 			
 		});
@@ -150,7 +150,7 @@ public class Ventana extends JFrame{
 		btnFiltrar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				new DialogoFiltrar(gest,dtm);
+				new DialogoFiltrar(gest,dtm,tfSueldoMedio,tfNumTrabajadores);
 			}
 			
 		});
@@ -172,4 +172,5 @@ public class Ventana extends JFrame{
 		}
 		tfSueldoMedio.setText(sueldoMedio+"");
 	}
+	
 }
