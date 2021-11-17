@@ -10,6 +10,11 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Font;
 
+/**
+ * Clase que gestiona la ventana principal con la tabla
+ * @author windows10
+ *
+ */
 public class Ventana extends JFrame{
 	private JTable table;
 	private DefaultTableModel dtm= new DefaultTableModel();
@@ -17,11 +22,17 @@ public class Ventana extends JFrame{
 	private JTextField tfNumTrabajadores;
 	private JTextField tfSueldoMedio;
 	
+	/**
+	 * Constructor de la clase
+	 */
 	public Ventana() {
 		iniciarComponentes();
 		gest.abrirConexion();
 	}
 	
+	/**
+	 * Metodo que inicia los componentes y les da utilidad
+	 */
 	private void iniciarComponentes() {
 		setTitle("Ver trabajadores");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -116,7 +127,7 @@ public class Ventana extends JFrame{
 				if(table.getSelectedRow()==-1)
 					JOptionPane.showMessageDialog(null, "Debes seleccionar un trabajador");
 				else
-					new DialogoModificar(gest,dtm,(String)dtm.getValueAt(table.getSelectedRow(), 0));
+					new DialogoModificar(gest,dtm,(String)dtm.getValueAt(table.getSelectedRow(), 0),tfSueldoMedio);
 			}
 			
 		});
@@ -164,6 +175,9 @@ public class Ventana extends JFrame{
 		});
 	}
 	
+	/**
+	 * Metodo que muestra el numero de trabajadores y el sueldo
+	 */
 	private void modificarNumSueldo() {
 		double sueldoMedio=0;
 		tfNumTrabajadores.setText(""+dtm.getRowCount());

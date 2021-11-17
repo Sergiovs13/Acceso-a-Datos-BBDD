@@ -9,6 +9,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
+/**
+ * Clase que gestiona la ventana de filtrar
+ * @author windows10
+ *
+ */
 public class DialogoFiltrar extends JDialog{
 
 	private JTextField tfDNI,tfNombre,tfApellido,tfSueldo;
@@ -19,6 +24,13 @@ public class DialogoFiltrar extends JDialog{
 	private JRadioButton rdbtnAsc, rdbtnDesc;
 	private JTextField sueldo, trabajadores;
 	
+	/**
+	 * Constructor de la clase
+	 * @param gest. Objeto de la clase GestionBBDD
+	 * @param dtm. Modelo de la tabla que muestra los trabajadores
+	 * @param sueldo. Componente JTextField donde pondremos el sueldo
+	 * @param trabajadores. Compoente JTextField donde pondremos el numero de trabajadores
+	 */
 	public DialogoFiltrar(GestionBBDD gest, DefaultTableModel dtm,JTextField sueldo, JTextField trabajadores) {
 		iniciarComponentes();
 		this.gest=gest;
@@ -27,7 +39,9 @@ public class DialogoFiltrar extends JDialog{
 		this.trabajadores=trabajadores;
 	}
 	
-	
+	/**
+	 * Metodo que inicia los componentes y les da utilidad
+	 */
 	private void iniciarComponentes() {
 		setTitle("Filtrar Trabajador");
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -121,6 +135,9 @@ public class DialogoFiltrar extends JDialog{
 		
 		btnAceptar.addActionListener(new ActionListener() {
 
+			/*Al pulsar en el boton, comprobamos que campos estan vacios o llenos
+			 * Si el usuario selecciona un campo para ordenar y el tipo de ordenacion
+			 */
 			public void actionPerformed(ActionEvent e) {
 				String sentencia="";
 				int semaforo=0;
@@ -239,6 +256,9 @@ public class DialogoFiltrar extends JDialog{
 		setVisible(true);
 	}
 	
+	/**
+	 * Metodo que vacia los campos del dialogo
+	 */
 	private void vaciarCampos() {
 		tfDNI.setText("");
 		tfNombre.setText("");

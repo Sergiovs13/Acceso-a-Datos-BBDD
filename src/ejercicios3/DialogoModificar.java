@@ -6,23 +6,37 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-
+/**
+ * Clase que gestiona la ventana de modificar
+ * @author windows10
+ *
+ */
 public class DialogoModificar extends JDialog{
 	private JTextField tfDNI, tfNombre, tfApellido, tfSueldo;
 	private JTextField tfDia, tfMes, tfAnyo, tfMatricula;
 	private GestionBBDD gest;
 	private DefaultTableModel dtm;
 	private String[] datosTrabajador;
+	private JTextField sueldo;
 	
-	public DialogoModificar(GestionBBDD gest,DefaultTableModel dtm, String dni) {
+	/**
+	 * Constructor de la clase
+	 * @param gest. Objeto de la clase GestionBBDD
+	 * @param dtm. Modelo de la tabla que muestra los trabajadores
+	 * @param dni. DNI del trabajador que modificaremos los datos
+	 */
+	public DialogoModificar(GestionBBDD gest,DefaultTableModel dtm, String dni,JTextField sueldo) {
 		iniciarComponentes();
 		this.gest=gest;
 		this.dtm=dtm;
+		this.sueldo=sueldo;
 		tfDNI.setText(dni);
 		datosTrabajador=gest.datosTrabajador(dni, dtm);
 		rellenarCampos();
 	}
-	
+	/**
+	 * Metodo que inicia los componentes y les da utilidad
+	 */
 	private void iniciarComponentes() {
 		setTitle("Modificar Trabajadores");
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -107,6 +121,9 @@ public class DialogoModificar extends JDialog{
 		
 		btnAceptar.addActionListener(new ActionListener() {
 
+			/**
+			 * Al pulsar en el boton, obtenemos los datos de los campos y los modificamos
+			 */
 			public void actionPerformed(ActionEvent arg0) {
 				String fecha="";
 				fecha+=tfAnyo.getText();
@@ -119,6 +136,7 @@ public class DialogoModificar extends JDialog{
 				try {
 					gest.mostrarTrabajadores(dtm);
 					dispose();
+					sueldo.setText(""+gest.sumaSueldo());
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -143,6 +161,9 @@ public class DialogoModificar extends JDialog{
 		setVisible(true);
 	}
 	
+	/**
+	 * Metodo para vaciar los campos
+	 */
 	private void vaciarCampos() {
 		tfDNI.setText("");
 		tfNombre.setText("");
@@ -154,6 +175,9 @@ public class DialogoModificar extends JDialog{
 		tfMatricula.setText("");
 	}
 	
+	/**
+	 * Metodo para rellenar los campos con los datos del trabajador
+	 */
 	private void rellenarCampos() {
 		tfNombre.setText(datosTrabajador[0]);
 		tfApellido.setText(datosTrabajador[1]);

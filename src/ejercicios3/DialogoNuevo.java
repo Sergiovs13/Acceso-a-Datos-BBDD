@@ -14,6 +14,11 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
+/**
+ * Clase que gestiona la ventana de agregar un nuevo trabajador
+ * @author windows10
+ *
+ */
 public class DialogoNuevo extends JDialog{
 	private JTextField tfDNI, tfNombre, tfApellido, tfMatricula;
 	private JTextField tfSueldo, tfDia, tfMes, tfAnyo;
@@ -21,6 +26,13 @@ public class DialogoNuevo extends JDialog{
 	private DefaultTableModel dtm;
 	private JTextField sueldo, trabajadores;
 	
+	/**
+	 * Constructor de la clase
+	 * @param gest. Objeto de la clas GestionBBDD
+	 * @param dtm. Modelo de la tabla que muestra trabajadores
+	 * @param sueldo. Componente JTextField donde pondremos el sueldo
+	 * @param trabajadores. Componente JTextField donde pondremos el numero de trabajadores
+	 */
 	public DialogoNuevo(GestionBBDD gest, DefaultTableModel dtm, JTextField sueldo, JTextField trabajadores) {
 		iniciarComponentes();
 		this.gest=gest;
@@ -29,6 +41,9 @@ public class DialogoNuevo extends JDialog{
 		this.trabajadores=trabajadores;
 	}
 
+	/**
+	 * Metodo que inicia los componentes y les da utilidad
+	 */
 	private void iniciarComponentes() {
 		setTitle("Insertar Trabajador");
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -149,6 +164,9 @@ public class DialogoNuevo extends JDialog{
 		setVisible(true);
 	}
 	
+	/**
+	 * Metodo que vacia los campos
+	 */
 	private void vaciarCampos() {
 		tfDNI.setText("");
 		tfNombre.setText("");
